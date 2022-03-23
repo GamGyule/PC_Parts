@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 4.8.3
+- https://www.phpmyadmin.net
+-
+- Host: localhost
+- 생성 시간: 19-04-08 17:23
+- 서버 버전: 10.3.8-MariaDB
+- PHP 버전: 7.2.10
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="compuzone" collation="utf8_general_ci" charset="utf8">
+            <pma:table name="orders">
+                CREATE TABLE `orders` (
+                  `orderid` int(11) NOT NULL AUTO_INCREMENT,
+                  `date` date NOT NULL,
+                  `pid` int(11) NOT NULL,
+                  `price` int(11) NOT NULL,
+                  `count` int(11) NOT NULL,
+                  `cname` varchar(20) NOT NULL,
+                  `cphone` text NOT NULL,
+                  PRIMARY KEY (`orderid`),
+                  KEY `pid_fk` (`pid`),
+                  CONSTRAINT `pid_fk` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+            </pma:table>
+            <pma:table name="product">
+                CREATE TABLE `product` (
+                  `pid` int(11) NOT NULL AUTO_INCREMENT,
+                  `name` varchar(200) NOT NULL,
+                  `info` varchar(200) NOT NULL,
+                  `price` int(11) NOT NULL DEFAULT 0,
+                  `img` varchar(30) NOT NULL,
+                  `count` int(11) NOT NULL DEFAULT 0,
+                  PRIMARY KEY (`pid`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - 데이터베이스: 'compuzone'
+    -->
+    <database name="compuzone">
+        <!-- 테이블 orders -->
+        <!-- 테이블 product -->
+        <table name="product">
+            <column name="pid">1</column>
+            <column name="name">[INTEL] 코어9세대 i9-9900X 정품박스(스카이레이크X/3.5GHz/19.25MB/쿨러미포함)</column>
+            <column name="info">코어 i9-9900X / 9세대 스카이레이크-X / 데카(10)코어 / LGA2066 / 14nm / 19.25MB / 박스(쿨러미포함)</column>
+            <column name="price">1183000</column>
+            <column name="img">i9-9900X</column>
+            <column name="count">30</column>
+        </table>
+        <table name="product">
+            <column name="pid">2</column>
+            <column name="name">[INTEL] 코어9세대 i9-9820X 정품박스(스카이레이크X/3.3GHz/16.5MB/쿨러미포함)</column>
+            <column name="info">코어 i9-9820X / 9세대 스카이레이크-X / 데카(10)코어 / LGA2066 / 14nm / 16.5MB / 박스(쿨러미포함)</column>
+            <column name="price">1040000</column>
+            <column name="img">i9-9820X</column>
+            <column name="count">16</column>
+        </table>
+        <table name="product">
+            <column name="pid">3</column>
+            <column name="name">[INTEL] 코어9세대 i5-9400F 정품박스 (커피레이크 리프레시/2.90GHz/9MB/쿨러포함)</column>
+            <column name="info">9세대 커피레이크 R 코어 i5 / LGA1151-V2 / 14nm / 헥사(6)코어 / 쓰레드 6개 / 2.9GHz / 터보부스트 4.1GHz / 9MB / 64비트 / 65W </column>
+            <column name="price">223000</column>
+            <column name="img">i5-9400F</column>
+            <column name="count">21</column>
+        </table>
+        <table name="product">
+            <column name="pid">4</column>
+            <column name="name">[INTEL] 코어8세대 i5-8500 정품박스 (커피레이크/3.0GHz/9MB/쿨러포함)</column>
+            <column name="info">Core i5-8500(3.0GHz) / 헥사코어 / 커피레이크(CoffeeLake) / 14nm / 9MB버퍼 / LGA1151-V2 / 정품박스 / 쿨러포함</column>
+            <column name="price">293000</column>
+            <column name="img">i5-8500</column>
+            <column name="count">10</column>
+        </table>
+        <table name="product">
+            <column name="pid">5</column>
+            <column name="name">[INTEL] 코어7세대 i5-7640X 정품박스(카비레이크X/4.0GHz/6MB/쿨러미포함)</column>
+            <column name="info">Core i5-7640X(4.0GHz) / 쿼드코어 / 카비레이크-X(KabyLake-X) / 14nm / 6MB버퍼 / LGA2066 / 박스 / 쿨러미포함</column>
+            <column name="price">212000</column>
+            <column name="img">i5-7640X</column>
+            <column name="count">0</column>
+        </table>
+        <table name="product">
+            <column name="pid">6</column>
+            <column name="name">[INTEL] 인텔 코어 i9-7960X 정품박스 (스카이레이크X/2.8GHz/22.0MB/쿨러미포함)</column>
+            <column name="info">Core i9-7960X(2.8GHz) / 헥사데카코어 / 스카이레이크-X(Skylake-X) / 14nm / 22MB버퍼 / LGA2066 / 박스 / 쿨러미포함</column>
+            <column name="price">1730000</column>
+            <column name="img">i9-7960X</column>
+            <column name="count">47</column>
+        </table>
+        <table name="product">
+            <column name="pid">7</column>
+            <column name="name">[INTEL] 코어6세대 i5-6400 정품박스 (스카이레이크/2.7GHz/6MB/쿨러포함)</column>
+            <column name="info">Core i5-6400(2.7GHz) / 쿼드코어 / 스카이레이크(Skylake) / 14nm / 6MB버퍼 / 32(64)비트지원 / LGA1151 / 정품박스 / 쿨러포함</column>
+            <column name="price">236000</column>
+            <column name="img">i5-6400</column>
+            <column name="count">10</column>
+        </table>
+        <table name="product">
+            <column name="pid">8</column>
+            <column name="name">[AMD] 라이젠 7 피나클릿지 2700X 정품박스</column>
+            <column name="info">Ryzen 7 2700X (3.7GHz) / 옥타(8)코어 / 라이젠 / 소켓AM4 / 20MB버퍼</column>
+            <column name="price">383000</column>
+            <column name="img">2700X</column>
+            <column name="count">150</column>
+        </table>
+        <table name="product">
+            <column name="pid">9</column>
+            <column name="name">[AMD] 라이젠 7 피나클릿지 2700 정품박스</column>
+            <column name="info">Ryzen 7 2700(3.2GHz) / 옥타(8)코어 / 라이젠 / 소켓AM4 / 20MB버퍼</column>
+            <column name="price">308000</column>
+            <column name="img">2700</column>
+            <column name="count">0</column>
+        </table>
+        <table name="product">
+            <column name="pid">10</column>
+            <column name="name">[AMD] 라이젠 5 피나클릿지 2600 정품박스</column>
+            <column name="info">Ryzen 5 2600(3.4GHz) / 헥사(6)코어 / 라이젠 / 소켓AM4 / 19MB버퍼</column>
+            <column name="price">199000</column>
+            <column name="img">2600</column>
+            <column name="count">36</column>
+        </table>
+        <table name="product">
+            <column name="pid">11</column>
+            <column name="name">[AMD] 라이젠 5 레이븐릿지 2400G (쿼드코어/3.6GHz/쿨러포함/대리점정품)</column>
+            <column name="info">Ryzen 5 2400G(3.6GHz) / 쿼드코어(4코어) / 라이젠 / 소켓AM4 / 6MB버퍼 / 14nm / AMD 라데온 Vega 11 내장그래픽</column>
+            <column name="price">168000</column>
+            <column name="img">2400G</column>
+            <column name="count">23</column>
+        </table>
+        <table name="product">
+            <column name="pid">12</column>
+            <column name="name">[AMD] 라이젠 3 레이븐릿지 2200G (쿼드코어/3.5GHz/쿨러포함/대리점정품)</column>
+            <column name="info">라이젠 3 2200G(3.5GHz) / 쿼드코어(4코어) / 라이젠 / 소켓AM4 / 6MB버퍼 / 14nm / AMD 라데온 Vega 8 내장그래픽</column>
+            <column name="price">102000</column>
+            <column name="img">2200G</column>
+            <column name="count">21</column>
+        </table>
+        <table name="product">
+            <column name="pid">13</column>
+            <column name="name">[AMD] 스레드리퍼 1950X 정품박스 (헥사데카코어/3.4GHz/쿨러미포함/대리점정품)</column>
+            <column name="info">1950X(3.4GHz) / 헥사데카코어(16코어) / 라이젠스레드리퍼 / 소켓TR4 / 41MB버퍼 / 14nm / 내장그래픽 무</column>
+            <column name="price">868000</column>
+            <column name="img">1950X</column>
+            <column name="count">8</column>
+        </table>
+        <table name="product">
+            <column name="pid">14</column>
+            <column name="name">[AMD] 라이젠 7 서밋릿지 1800X 정품박스 (옥타코어/3.6GHz/쿨러미포함/대리점정품)</column>
+            <column name="info">7 1800X(3.6GHz) / 옥타코어(8코어) / 라이젠 / 소켓AM4 / 20M버퍼 / 14nm / 박스(쿨러미포함)</column>
+            <column name="price">444340</column>
+            <column name="img">1800X</column>
+            <column name="count">23</column>
+        </table>
+        <table name="product">
+            <column name="pid">15</column>
+            <column name="name">[AMD] 라이젠 7 서밋릿지 1700X 정품 멀티팩 (옥타코어/3.4GHz/쿨러포함/대리점정품)</column>
+            <column name="info">7 1700X(3.4GHz) / 옥타코어(8코어) / 라이젠 / 소켓AM4 / 20M버퍼 / 14nm</column>
+            <column name="price">0</column>
+            <column name="img">1700X</column>
+            <column name="count">12</column>
+        </table>
+        <table name="product">
+            <column name="pid">16</column>
+            <column name="name">[AMD] 라이젠 5 서밋릿지 1600X 정품 멀티팩 (헥사코어/3.6GHz/쿨러포함/대리점정품)</column>
+            <column name="info">5 1600(3.6GHz) / 헥사코어(6코어) / 라이젠 / 소켓AM4 / 19M버퍼 / 14nm</column>
+            <column name="price">244000</column>
+            <column name="img">1600X</column>
+            <column name="count">4</column>
+        </table>
+        <table name="product">
+            <column name="pid">17</column>
+            <column name="name">[삼성전자] 삼성 DDR4 8GB PC4-21300</column>
+            <column name="info">8GB / 288핀 / DDR4 2666(PC4 21300) / DDR4-SDRAM / 2666MHz (PC4-21300) / DDR4 / 8GB</column>
+            <column name="price">51900</column>
+            <column name="img">memory</column>
+            <column name="count">37</column>
+        </table>
+        <table name="product">
+            <column name="pid">18</column>
+            <column name="name">[삼성전자] 삼성 DDR4 16GB PC4-21300</column>
+            <column name="info">16GB / 288핀 / DDR4 2666(PC4 21300) / DDR4-SDRAM</column>
+            <column name="price">106500</column>
+            <column name="img">memory</column>
+            <column name="count">75</column>
+        </table>
+        <table name="product">
+            <column name="pid">19</column>
+            <column name="name">[삼성전자] 삼성 DDR4 4GB PC4-19200</column>
+            <column name="info">4GB / 288핀 / DDR4 2400(PC4 19200) / DDR4-SDRAM</column>
+            <column name="price">26500</column>
+            <column name="img">memory</column>
+            <column name="count">14</column>
+        </table>
+        <table name="product">
+            <column name="pid">20</column>
+            <column name="name">[삼성전자] 삼성 DDR4 8GB PC4-19200</column>
+            <column name="info">8GB / 288핀 / DDR4 2400(PC4 19200) / DDR4-SDRAM</column>
+            <column name="price">51500</column>
+            <column name="img">memory</column>
+            <column name="count">54</column>
+        </table>
+        <table name="product">
+            <column name="pid">21</column>
+            <column name="name">[삼성전자] DDR4 4GB PC4-21300</column>
+            <column name="info">4GB / 288핀 / DDR4 2666(PC4 21300) / DDR4-SDRAM</column>
+            <column name="price">24700</column>
+            <column name="img">memory</column>
+            <column name="count">32</column>
+        </table>
+        <table name="product">
+            <column name="pid">22</column>
+            <column name="name">[G.SKILL] DDR4 16GB PC4-24000 CL16 AEGIS</column>
+            <column name="info">16GB / 288핀 / DDR4 3000(PC4 24000) / DDR4-SDRAM</column>
+            <column name="price">115620</column>
+            <column name="img">gmemory</column>
+            <column name="count">65</column>
+        </table>
+        <table name="product">
+            <column name="pid">23</column>
+            <column name="name">[G.SKILL] DDR4 8G PC4-24000 CL16 AEGIS</column>
+            <column name="info">8GB / 288핀 / DDR4 3000(PC4 24000) / DDR4-SDRAM</column>
+            <column name="price">58790</column>
+            <column name="img">gmemory</column>
+            <column name="count">29</column>
+        </table>
+        <table name="product">
+            <column name="pid">24</column>
+            <column name="name">[G.SKILL] DDR4 8GB PC4-21300 AEGIS</column>
+            <column name="info">8GB / 288핀 / DDR4 2666(PC4 21300) / DDR4-SDRAM</column>
+            <column name="price">50860</column>
+            <column name="img">gmemory</column>
+            <column name="count">47</column>
+        </table>
+        <table name="product">
+            <column name="pid">25</column>
+            <column name="name">[G.SKILL] DDR4 16GB PC4-19200 CL15 AEGIS</column>
+            <column name="info">16GB / 288핀 / DDR4 2400(PC4 19200) / DDR4-SDRAM</column>
+            <column name="price">102890</column>
+            <column name="img">gmemory</column>
+            <column name="count">27</column>
+        </table>
+        <table name="product">
+            <column name="pid">26</column>
+            <column name="name">[G.SKILL] DDR4 8GB PC4-19200 CL15 AEGIS</column>
+            <column name="info">8GB / 288핀 / DDR4 2400(PC4 19200) / DDR4-SDRAM</column>
+            <column name="price">51930</column>
+            <column name="img">gmemory</column>
+            <column name="count">37</column>
+        </table>
+        <table name="product">
+            <column name="pid">27</column>
+            <column name="name">[GIGABYTE] GeForce RTX 2080 Ti UDV 터보포스 D6 11GB</column>
+            <column name="info">지포스 / RTX2080Ti / DDR6 / 11GB / 최대 1545MHz / 352bit / 히트파이프+팬 / PCI-Express 3.0</column>
+            <column name="price">1634000</column>
+            <column name="img">RTX</column>
+            <column name="count">73</column>
+        </table>
+        <table name="product">
+            <column name="pid">28</column>
+            <column name="name">[GIGABYTE] GeForce RTX 2080 UDV WF3 D6 8GB</column>
+            <column name="info">지포스 RTX2080 / GDDR6 8GB / 1710MHz / 14000MHz / 256-bit / 히트파이프+팬 / PCI-Express x16(3.0)</column>
+            <column name="price">985000</column>
+            <column name="img">RTX</column>
+            <column name="count">46</column>
+        </table>
+        <table name="product">
+            <column name="pid">29</column>
+            <column name="name">[Galaxy] GeForce RTX 2060 BLACK D D6 6GB</column>
+            <column name="info">RTX2060 / DDR6 / 6GB / 192bit / 일반 / DisplayPort x 1개 / HDMI x 1개 / DVI x 1개 / 히트파이프+팬 / 팬 2개 / Dual</column>
+            <column name="price">447400</column>
+            <column name="img">RTX 2060</column>
+            <column name="count">98</column>
+        </table>
+        <table name="product">
+            <column name="pid">30</column>
+            <column name="name">[Galaxy] GeForce RTX 2080 개간지 EXOC D6 8GB</column>
+            <column name="info">지포스 RTX2080 / GDDR6 8GB / 256-bit / 히트파이프+팬 / PCI-Express x16(3.0)</column>
+            <column name="price">1070170</column>
+            <column name="img">RTX 2080</column>
+            <column name="count">102</column>
+        </table>
+        <table name="product">
+            <column name="pid">31</column>
+            <column name="name">[PALIT] GeForce GTX 1060 JETSTREAM D5 6GB</column>
+            <column name="info">지포스 GTX1060 / 1506 MHz , 부스트 1708MHz / 1280개 / PCIe3.0x16 / GDDR5(DDR5) / 8000MHz / 6GB / 192-bit / DVI / HDMI / DP / 최대 120W / 정격파워 400W 이상 / 2개 팬 / 248mm / LED 라이트 / RGB LIGHTING</column>
+            <column name="price">287000</column>
+            <column name="img">GTX1060</column>
+            <column name="count">10</column>
+        </table>
+        <table name="product">
+            <column name="pid">32</column>
+            <column name="name">[PALIT] GeForce RTX 2060 GAMINGPRO OC D6 6GB</column>
+            <column name="info">지포스 RTX2060 / DDR6 / 6GB / 1365MHz / 부스트 1830MHz / 14000MHz / 192bit / DisplayPort x 1개 / HDMI x 1개 / DVI x 1개 / 8 Pin / LED 라이트 / 히트파이프+팬 2개 / PCI-Express 3.0 / 정격파워 500W 이상</column>
+            <column name="price">485000</column>
+            <column name="img">RTX 2060</column>
+            <column name="count">54</column>
+        </table>
+        <table name="product">
+            <column name="pid">33</column>
+            <column name="name">[MSI] GeForce RTX 2080 Ti 게이밍 X 트리오 D6 11GB 트라이프로져</column>
+            <column name="info">지포스 RTX2080Ti / GDDR6 11GB / 1350MHz / 최대 1755MHz / 352-bit / 히트파이프+팬 / PCI-Express x16(3.0)</column>
+            <column name="price">1890000</column>
+            <column name="img">GeForce RTX 2080 Ti 게이밍 X 트리오</column>
+            <column name="count">120</column>
+        </table>
+        <table name="product">
+            <column name="pid">34</column>
+            <column name="name">[MSI] GeForce RTX 2080 Ti 라이트닝 Z D6 11GB</column>
+            <column name="info">지포스 RTX 2080 Ti / 12nm / 4352개 / PCIe3.0x16 / GDDR6(DDR6) / 11GB / 352-bit / HDMI / DP / USB Type-C / 3개 팬 / 백플레이트 / LED 라이트</column>
+            <column name="price">2490000</column>
+            <column name="img">RTX 2080 Ti 라이트닝</column>
+            <column name="count">40</column>
+        </table>
+        <table name="product">
+            <column name="pid">35</column>
+            <column name="name">[SAPPHIRE] Radeon™ VII HBM2 16GB</column>
+            <column name="info">라데온 VEGA 7 / Radeon Vll / PCI-Express 3.0 / 16GB / HBM2 / 768bit 이상 / 일반 / HDMI x 1개 / DisplayPort x 3개 / 8 Pin x 2 / VGA 271~290 mm / 방열판+팬(일반)</column>
+            <column name="price">971800</column>
+            <column name="img">Radeon VII</column>
+            <column name="count">30</column>
+        </table>
+        <table name="product">
+            <column name="pid">36</column>
+            <column name="name">[SAPPHIRE] Radeon™ RX 590 NITRO Special Edition OC D5 8GB Dual-X</column>
+            <column name="info">라데온 RX 590 / GDDR5 8GB / 최대 1560MHz / 8400MHz / 256-bit / 히트파이프 + 팬 / PCI-Express x16(3.0)</column>
+            <column name="price">0</column>
+            <column name="img">RX 590</column>
+            <column name="count">12</column>
+        </table>
+        <table name="product">
+            <column name="pid">37</column>
+            <column name="name">[GIGABYTE] Radeon™ RX Vega 64 Gaming HBM2 8GB</column>
+            <column name="info">라데온 RX VEGA 64 / HBM2 8GB / 1276MHz / 최대 1560MHz / 945MHz / 2048-bit / 히트파이프 + 팬 / PCI-Express x16(3.0)</column>
+            <column name="price">892000</column>
+            <column name="img"> RX Vega 64</column>
+            <column name="count">32</column>
+        </table>
+        <table name="product">
+            <column name="pid">38</column>
+            <column name="name">[GIGABYTE] Radeon™ RX 580 Gaming D5 8GB (벌크)</column>
+            <column name="info">라데온 RX 580 / GDDR5 8GB / 1340MHz / 최대 1355MHz / 8000MHz / 256-bit / 히트파이프 + 팬 / PCI-Express x16(3.0)</column>
+            <column name="price">237000</column>
+            <column name="img">RX 580</column>
+            <column name="count">8</column>
+        </table>
+        <table name="product">
+            <column name="pid">39</column>
+            <column name="name">[GIGABYTE] Radeon™ RX 560 Gaming D5 4GB</column>
+            <column name="info">라데온 RX 560 / GDDR5 4GB / 최대 1300MHz / 7000MHz / 128-bit / 히트파이프 + 팬 / PCI-Express x16(3.0)</column>
+            <column name="price">190000</column>
+            <column name="img">RX 560</column>
+            <column name="count">4</column>
+        </table>
+    </database>
+</pma_xml_export>

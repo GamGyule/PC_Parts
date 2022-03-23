@@ -1,0 +1,236 @@
+﻿<Window x:Class="compuzoneWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:compuzoneWPF"
+        mc:Ignorable="d"
+        x:Name="hwnd"
+        Title="부품 관리 프로그램" Height="650" Width="1006" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Closed="hwnd_Closed">
+    <Window.Resources>
+        <DataTemplate x:Key="ProductDataTemplate">
+            <Grid Width="424" Height="85" HorizontalAlignment="Stretch">
+                <TextBlock HorizontalAlignment="Left" Margin="5,0,0,0" Height="16" VerticalAlignment="Top" Text="{Binding Co}"/>
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" FontSize="12" Height="35" Width="305" Margin="42,0,0,0"/>
+                <TextBlock HorizontalAlignment="Left" Margin="0,35,0,0" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" Height="50" Width="347" Text="{Binding Info}" FontSize="9"/>
+                <TextBlock HorizontalAlignment="Right" Margin="0,20,0,21" TextWrapping="Wrap" VerticalAlignment="Stretch" Width="75" Text="{Binding Price, StringFormat=\{0:N0\}원}"/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="OrderListTemplate">
+            <Grid Width="493">
+                <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Height="20" Width="231" FontSize="13" TextTrimming="CharacterEllipsis"/>
+                <TextBox HorizontalAlignment="Left" Height="20" Margin="244,0,0,0" TextWrapping="Wrap" TextAlignment="Center" Text="{Binding Count}" VerticalAlignment="Top" Width="26" IsReadOnlyCaretVisible="False" IsReadOnly="True"/>
+                <Button Content="▲" HorizontalAlignment="Left" FontSize="5" Margin="270,0,0,0" VerticalAlignment="Top" Width="22" Height="10" Click="CountUp"/>
+                <Button Content="▼" HorizontalAlignment="Left" FontSize="5" Margin="270,10,0,0" VerticalAlignment="Top" Width="22" Height="10" Click="CountDown"/>
+                <Button Content="삭제" Click="OrderDelete" HorizontalAlignment="Left" Margin="436,0,0,0" VerticalAlignment="Top" Width="40"/>
+                <TextBlock HorizontalAlignment="Left" Margin="317,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="110" Text="{Binding Result, StringFormat=\{0:N0\}원}"/>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="763*"/>
+            <ColumnDefinition Width="243*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="ProductList" ItemsSource="{Binding Mode=OneWay}" Height="567" Margin="10,42,0,0" VerticalAlignment="Top" ItemTemplate="{DynamicResource ProductDataTemplate}" Background="{x:Null}" HorizontalAlignment="Left" Width="456" d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="ProductList_MouseDoubleClick"/>
+        <TextBox x:Name="SearchBox" HorizontalAlignment="Left" Height="27" Margin="10,10,0,0" TextWrapping="Wrap" Text="검색" VerticalAlignment="Top" Width="390" Foreground="Gray" GotFocus="SearchBox_GotFocus" LostFocus="SearchBox_LostFocus" KeyDown="SearchBox_KeyDown"/>
+        <Button x:Name="SearchBtn" Content="검색" HorizontalAlignment="Left" Margin="405,10,0,0" VerticalAlignment="Top" Width="61" Height="27" Click="SearchBtn_Click"/>
+        <ListBox x:Name="OrderList" ItemsSource="{Binding Mode=OneWay}" Margin="471,291,0,0" ItemTemplate="{DynamicResource OrderListTemplate}" HorizontalAlignment="Left" Width="511" Height="318" VerticalAlignment="Top" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name="MainFilter" HorizontalAlignment="Left" Margin="471,42,0,0" VerticalAlignment="Top" Height="28" Width="102" SelectionChanged="MainFilter_SelectionChanged">
+            <ComboBoxItem Content="CPU" HorizontalAlignment="Left" Width="99"/>
+            <ComboBoxItem Content="메모리" HorizontalAlignment="Left" Width="99"/>
+            <ComboBoxItem Content="그래픽카드" HorizontalAlignment="Left" Width="99"/>
+        </ComboBox>
+
+
+        <GroupBox x:Name="cpuFilter" Header="검색 옵션" Margin="471,75,0,0" VerticalAlignment="Top" Visibility="Hidden" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <RadioButton x:Name="cpuRyzen" Content="라이젠" GroupName="cpuCompany" Click="CpuRyzen_Checked" IsChecked="True"/>
+                <RadioButton x:Name="cpuIntel" Content="인텔" GroupName="cpuCompany" Margin="10,0,0,0" Click="CpuIntel_Checked"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox x:Name="memoryFilter" Header="검색 옵션" Margin="471,75,0,0" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <RadioButton x:Name="memorySamsung" Content="삼성전자" GroupName="memoryCompany" Click="MemorySamsung_Checked" IsChecked="True" />
+                <RadioButton x:Name="memoryGskill" Content="G.SKILL" GroupName="memoryCompany" Margin="10,0,0,0" Click="MemoryGskill_Checked"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox x:Name="vgaFilter" Header="검색 옵션" Margin="471,75,0,0" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <RadioButton x:Name="graphicNvidia" Content="NVIDIA" GroupName="vgaCompany" Click="GraphicNvidia_Checked" IsChecked="True"/>
+                <RadioButton x:Name="graphicAmd"  Content="AMD" GroupName="vgaCompany" Margin="10,0,0,0" Click="GraphicAmd_Checked"/>
+            </StackPanel>
+        </GroupBox>
+
+
+
+
+
+        <GroupBox x:Name="cpuRyzenDetailFilter" Header="상세 옵션" Margin="471,138,10,0" Visibility="Hidden" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <ScrollViewer>
+                <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width = "*" />
+                        <ColumnDefinition Width = "*" />
+                        <ColumnDefinition Width = "*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+
+                    </Grid.RowDefinitions>
+                    <CheckBox Grid.Row="0" Grid.Column="0" Content="피나클릿지" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="0" Grid.Column="1" Content="레이븐릿지" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="0" Grid.Column="2" Content="서밋릿지" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+
+                    <CheckBox Grid.Row="1" Grid.Column="0" Content="라이젠 7" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="1" Grid.Column="1" Content="라이젠 5" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="1" Grid.Column="2" Content="라이젠 3" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                </Grid>
+            </ScrollViewer>
+        </GroupBox>
+
+        <GroupBox x:Name="cpuIntelDetailFilter" Header="상세 옵션" Margin="471,138,10,0" Visibility="Hidden" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <ScrollViewer>
+                <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width = "*" />
+                        <ColumnDefinition Width = "*" />
+                        <ColumnDefinition Width = "*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                    </Grid.RowDefinitions>
+                    <CheckBox Grid.Row="0" Grid.Column="0" Content="스카이레이크" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="0" Grid.Column="1" Content="커피레이크" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="0" Grid.Column="2" Content="커피레이크" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+
+                    <CheckBox Grid.Row="1" Grid.Column="0" Content="카비레이크X" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="1" Grid.Column="1" Content="스카이레이크X" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="1" Grid.Column="2" Content="스카이레이크" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                </Grid>
+            </ScrollViewer>
+        </GroupBox>
+
+        <GroupBox x:Name="memoryDetailFilter" Header="상세 옵션" Margin="471,138,10,0" Visibility="Hidden" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <ScrollViewer>
+                <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width = "*" />
+                        <ColumnDefinition Width = "*" />
+                        <ColumnDefinition Width = "*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                    </Grid.RowDefinitions>
+                    <CheckBox Grid.Row="0" Grid.Column="0" Content="16GB" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="0" Grid.Column="1" Content="8GB" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="0" Grid.Column="2" Content="4GB" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+
+                    <CheckBox Grid.Row="1" Grid.Column="0" Content="PC4-22400" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="1" Grid.Column="1" Content="PC4-24000" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="1" Grid.Column="2" Content="PC4-19200" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                </Grid>
+            </ScrollViewer>
+        </GroupBox>
+
+        <GroupBox x:Name="graphicNvidiaDetailFilter" Header="상세 옵션" Margin="471,138,10,0" Visibility="Hidden" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <ScrollViewer>
+                <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width = "*" />
+                        <ColumnDefinition Width = "*" />
+                        <ColumnDefinition Width = "*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                    </Grid.RowDefinitions>
+                    <CheckBox Grid.Row="0" Grid.Column="0" Content="GIGABYTE" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="0" Grid.Column="1" Content="Galaxy" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="0" Grid.Column="2" Content="Colorful" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+
+                    <CheckBox Grid.Row="1" Grid.Column="0" Content="MSI" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="1" Grid.Column="1" Content="PALIT" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="1" Grid.Column="2" Content="ZOTAC" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+
+                    <CheckBox Grid.Row="2" Grid.Column="0" Content="RTX 2080 TI" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="2" Grid.Column="1" Content="RTX 2070" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="2" Grid.Column="2" Content="RTX 2080" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+
+                    <CheckBox Grid.Row="3" Grid.Column="0" Content="GTX 1080 TI" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="3" Grid.Column="1" Content="GTX 1070" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="3" Grid.Column="2" Content="GTX 1080" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+
+                    <CheckBox Grid.Row="4" Grid.Column="0" Content="RTX 2060" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="4" Grid.Column="1" Content="GTX 1060" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="4" Grid.Column="2" Content="GTX 1660" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                </Grid>
+            </ScrollViewer>
+        </GroupBox>
+
+        <GroupBox x:Name="graphicAmdDetailFilter" Header="상세 옵션" Margin="471,138,10,0" Visibility="Hidden" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <ScrollViewer>
+                <Grid Margin="0,10,0,0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width = "*" />
+                        <ColumnDefinition Width = "*" />
+                        <ColumnDefinition Width = "*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                        <RowDefinition Height = "20" />
+                    </Grid.RowDefinitions>
+                    <CheckBox Grid.Row="0" Grid.Column="0" Content="SAPPHIRE" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="0" Grid.Column="1" Content="GIGABYTE" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="0" Grid.Column="2" Content="MSI" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+
+                    <CheckBox Grid.Row="1" Grid.Column="0" Content="ASUS" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="1" Grid.Column="1" Content="AMD" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="1" Grid.Column="2" Content="ASRock" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+
+                    <CheckBox Grid.Row="2" Grid.Column="0" Content="Radeon Ⅶ" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="2" Grid.Column="1" Content="RX VEGA 64" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="2" Grid.Column="2" Content="RX VEGA 56" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+
+                    <CheckBox Grid.Row="3" Grid.Column="0" Content="RX 590" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="3" Grid.Column="1" Content="RX 580" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                    <CheckBox Grid.Row="3" Grid.Column="2" Content="RX 570" Unchecked="CheckBoxFilterUnChecked" Checked="CheckBoxFilterChecked"/>
+                </Grid>
+            </ScrollViewer>
+        </GroupBox>
+        <Button x:Name="AdminBtn" Content="관리자" HorizontalAlignment="Left" Margin="145,42,0,0" VerticalAlignment="Top" Width="76" Height="25" Click="AdminBtn_Click" Grid.Column="1"/>
+        <TextBlock x:Name="ResultWon" HorizontalAlignment="Left" TextAlignment="Left" FontSize="30" Margin="137,631,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="58" TextDecorations="Underline" Foreground="#FFE84D4D"/>
+        <TextBlock HorizontalAlignment="Left" FontSize="20" Margin="16,640,0,0" TextWrapping="Wrap" Text="총 견적 금액 " VerticalAlignment="Top"/>
+        <Button x:Name="buy" Content="구매하기" FontSize="25" HorizontalAlignment="Left" Margin="63,630,0,0" VerticalAlignment="Top" Width="156" Height="52" Click="Buy_Click" Grid.Column="1"/>
+        <TextBox x:Name="custname" HorizontalAlignment="Left" Height="23" Margin="530,665,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" InputMethod.PreferredImeState="Off" InputMethod.PreferredImeConversionMode="Native"/>
+        <TextBox x:Name="phone" HorizontalAlignment="Left" Height="23" Margin="530,633,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" KeyDown="Phone_KeyDown"/>
+        <Label Content="이름" HorizontalAlignment="Left" Margin="471,661,0,0" VerticalAlignment="Top"/>
+        <Label Content="휴대전화" HorizontalAlignment="Left" Margin="471,630,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>
